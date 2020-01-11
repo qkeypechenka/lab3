@@ -34,8 +34,10 @@ void loop() {
          playStartSound();
          timer = random(500, 5000);
          currentTime = millis();
-     } else if (currentTime + timer <= millis()) {
+         isWaiting = true;
+     } else if (isWaiting && currentTime + timer <= millis()) {
          isStarted = true;
+         isWaiting = false;
          playSound();
     } 
   }
@@ -70,7 +72,7 @@ void checkWinner() {
 
 
 void playSound() {
-  tone(buzzerPin, 500, 300);
+  tone(buzzerPin, 500, 200);
 }
 
 
@@ -82,10 +84,10 @@ void showLEDsignal(int pin) {
 
 
 void playStartSound() {
-  tone(buzzerPin, 500, 300);
-  digitalWrite(led1Pin, 1);
-  digitalWrite(led2Pin, 1);
-  delay(1000);
+  tone(buzzerPin, 800, 700);
   digitalWrite(led1Pin, 0);
   digitalWrite(led2Pin, 0);
+  delay(1000);
+  digitalWrite(led1Pin, 1);
+  digitalWrite(led2Pin, 1);
 }
